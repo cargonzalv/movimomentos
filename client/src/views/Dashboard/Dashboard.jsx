@@ -36,7 +36,13 @@ import {
 
 import dashboardStyle from "assets/jss/material-dashboard-react/dashboardStyle";
 
-let colors = ["orange","green","red","blue","purple"];
+let colors = {
+  "Hoy aprendí": "orange",
+  "Me conmovió":"green",
+  "Que loco que":"red",
+  "Un héroe en el transporte":"blue",
+  "Una alternativa para todos":"purple"
+};
 class Dashboard extends React.Component {
 
   componentDidMount(){
@@ -70,7 +76,7 @@ class Dashboard extends React.Component {
           return (
           <ItemGrid xs={12} sm={12} md={4} key = {i}>
             <RegularCard
-              headerColor={colors[Math.floor(Math.random()*Math.floor(colors.length))]}
+              headerColor={colors[post.title]}
               cardTitle={tit}
               cardSubtitle={post.comment}
 
