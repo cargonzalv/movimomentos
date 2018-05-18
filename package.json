@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "cross-env PORT=3001 node ./bin/www"
+    "start": "cross-env PORT=3001 node ./bin/www",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "dependencies": {
     "bluebird": "^3.5.1",
