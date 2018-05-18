@@ -28,6 +28,12 @@ app.use(express.static(path.resolve(__dirname, './client/build')));
 app.use('/', indexRouter);
 app.use('/posts', postsRouter);
 
+//To make sure all your routes are handled by React after defining all you express routes we will make sure 
+//any route that is not handled in express app will be redirected to the index.html in the react app to be handeled like so:
+app.get('*', (req, res) => {                       
+  res.sendFile(path.resolve(__dirname, "./client/build", 'index.html'));                               
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
