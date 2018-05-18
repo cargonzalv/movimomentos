@@ -8,4 +8,6 @@ router.route('/').get( PostController.findAllPosts);
 
 router.route("/").post(PostController.insertPost);
 
+router.route("/:id").put(PostController.updateLikes)
+
 module.exports = router;

@@ -65,6 +65,33 @@ class Dashboard extends React.Component {
   handleChangeIndex = index => {
     this.setState({ value: index });
   };
+
+  handleThumbs(postId,i,likes,dislikes){
+    (async () => {
+
+    const rawResponse = await fetch('/posts/'+ postId, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        likes: likes,
+        dislikes: dislikes
+      })
+    });
+    const content = await rawResponse.json();
+
+    if(content.error){
+      this.setState({errorMessages:content.error.errors})
+    }
+    else{
+      let newPosts = this.state.posts;
+      newPosts[i] = content.result;
+      this.setState({posts:newPosts});
+    }
+    })();
+  }
   render() {
     const { classes } = this.props;
     console.log(classes)
@@ -84,30 +111,25 @@ class Dashboard extends React.Component {
             <div className = {classes.container}>
             <IconButton
               color="info"
+              onClick = {()=>this.handleThumbs(post._id,i,post.likes + 1, post.dislikes)}
               aria-label="Dashboard"
               className={classes.buttonLink}>
               <ThumbUp className={classes.links} />
-              <Hidden mdUp>
-                  <p className={classes.linkText}>Dashboard</p>
-                </Hidden>
+              <p className={classes.linkText}>{post.likes}</p>
               </IconButton>
             <IconButton
               color="danger"
+              onClick = {()=>this.handleThumbs(post._id,i,post.likes,post.dislikes + 1)}
               aria-label="Dashboard"
               className={classes.buttonLink}>
               <ThumbDown className={classes.links} />
-              <Hidden mdUp>
-                  <p className={classes.linkText}>Dashboard</p>
-                </Hidden>
+              <p className={classes.linkText}>{post.dislikes}</p>
               </IconButton>
             <IconButton
               color="warning"
               aria-label="Dashboard"
               className={classes.buttonLink}>
               <Report className={classes.links} />
-              <Hidden mdUp>
-                <p className={classes.linkText}>Dashboard</p>
-              </Hidden>
             </IconButton>
           </div>}
             />
