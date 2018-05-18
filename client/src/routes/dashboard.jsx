@@ -66,7 +66,7 @@ const dashboardRoutes = [
     icon: Notifications,
     component: NotificationsPage
   },
-  { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
+  { redirect: false, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
 
 export default dashboardRoutes;

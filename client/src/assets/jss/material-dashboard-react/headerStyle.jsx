@@ -49,6 +49,18 @@ const headerStyle = theme => ({
       background: "transparent"
     }
   },
+  add:{
+    ...defaultFont,
+    lineHeight: "30px",
+    fontSize: "18px",
+    borderRadius: "3px",
+    textTransform: "none",
+    color: "inherit",
+    "&:hover,&:focus": {
+      background: "transparent"
+    },
+    marginLeft:"50%"
+  },
   appResponsive: {
     top: "8px"
   },

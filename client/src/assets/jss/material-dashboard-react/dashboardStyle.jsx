@@ -37,6 +37,10 @@ const dashboardStyle =  theme => ({
       color: "#a9afbb",
       marginRight: "15px"
     }
+  },
+  container:{
+    display: "flex",
+   
   }
 });
 

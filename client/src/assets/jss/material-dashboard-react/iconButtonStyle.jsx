@@ -16,11 +16,12 @@ const iconButtonStyle = {
   button: {
     height: "40px",
     minWidth: "40px",
+    margin:"0 5%",
+    transform:"translate(-50%, 0)",
     width: "40px",
     borderRadius: "50%",
     fontSize: "24px",
     align:"center",
-    margin: "0px 0% 0px 16%",
     padding: "0",
     boxShadow:
       "0 2px 2px 0 rgba(153, 153, 153, 0.14), 0 3px 1px -2px rgba(153, 153, 153, 0.2), 0 1px 5px 0 rgba(153, 153, 153, 0.12)",

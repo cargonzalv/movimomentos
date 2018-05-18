@@ -46,9 +46,11 @@ const regularCardStyle = {
     margin: "0 0 10px"
   },
   cardActions: {
-    padding: "14px",
-    display: "block",
-    height: "auto"
+    display: "table",
+    justifyContent: "space-between",
+    maxWidth: "400px",
+    margin: "0 auto",
+    padding: "10px 0",
   }
 };
 
