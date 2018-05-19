@@ -1,4 +1,5 @@
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
+import DetailedDashboardPage from "views/DetailedDashboard/DetailedDashboard.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
 import TableList from "views/TableList/TableList.jsx";
 import Typography from "views/Typography/Typography.jsx";
@@ -23,6 +24,13 @@ const dashboardRoutes = [
     navbarName: "Material Dashboard",
     icon: Dashboard,
     component: DashboardPage
+  },
+   {
+    path: "/post/:id",
+    sidebarName: "DetailedDashboard",
+    navbarName: "Dashboard",
+    icon: Dashboard,
+    component: DetailedDashboardPage
   },
   {
     path: "/add",

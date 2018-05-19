@@ -16,8 +16,7 @@ const iconButtonStyle = {
   button: {
     height: "40px",
     minWidth: "40px",
-    margin:"0 5%",
-    transform:"translate(-50%, 0)",
+    margin:"2px 5px",
     width: "40px",
     borderRadius: "50%",
     fontSize: "24px",

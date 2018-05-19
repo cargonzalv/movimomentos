@@ -49,8 +49,12 @@ const dashboardStyle =  theme => ({
     }
   },
   container:{
-    display: "flex",
-   
+   textAlign:"center"
+  },
+  twitter:{
+    margin:"auto",
+    float:"center",
+    width:40
   }
 });
 

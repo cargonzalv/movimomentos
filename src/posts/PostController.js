@@ -26,7 +26,7 @@ var findAll = (req,res)=>{
 	Post.find().exec()
 	.then((data)=>{
 		res.status(200).json({
-			message: "Person saved",
+			message: "Posts found",
 			result:data
 		})
 	}).catch((err)=>{
@@ -37,9 +37,26 @@ var findAll = (req,res)=>{
 	})
 };
 
+var findOne = (req,res)=>{
+  Post.findOne({_id:req.params.id},(err,post)=>{
+    if(err){
+      return res.status(500).json({
+      message:"Un error ha ocurrido",
+      error:err
+    })
+    }
+    else{
+      res.status(200).json({
+      message: "Post found",
+      result:post
+    })
+    }
+  })
+};
+
 var updateLikesComments = (io,P) => {
 
-	let newPost = P.likes ? {
+	let newPost = P.likes != undefined ? {
 		likes:P.likes,
 		dislikes:P.dislikes
 	} : {
@@ -63,4 +80,5 @@ module.exports = {
 	addPost: save,
 	findAllPosts: findAll,
 	updatePost: updateLikesComments,
+  findPost: findOne
 }

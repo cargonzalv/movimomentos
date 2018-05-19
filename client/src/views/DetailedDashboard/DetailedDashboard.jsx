@@ -68,20 +68,19 @@ let colors = {
   "Un héroe en el transporte":"blue",
   "Una alternativa para todos":"purple"
 };
-class Dashboard extends React.Component {
+class DetailedDashboard extends React.Component {
 
-  componentDidMount(){
-    fetch("/posts")
+ componentDidMount(){
+    fetch("/posts/"+this.props.match.params.id)
     .then((res)=> res.json())
     .then((jsonRes)=> {
-      this.setState({posts:jsonRes.result});
-
+      this.setState({post:jsonRes.result});
     })
 
   }
   state = {
     value: 0,
-    posts:[],
+    post:[],
     showComments:{}
   };
   handleChange = (event, value) => {
@@ -125,31 +124,22 @@ class Dashboard extends React.Component {
         this.setState({errorMessages:result.error.errors})
     }
     })
-    // Within the render method, we will be checking for any sockets.
-    // We do it in the render method because it is ran very often.
-    socket.on('postAdded', (result) => {
-      let posts = this.state.posts;
-      posts.push(result.newPost);
-      this.setState({posts:posts});
-    })
+    
     socket.on('postUpdated', (result) => {
-      let posts = this.state.posts;
-      posts[result.index] = result.newPost;
-      this.setState({posts:posts});
+      if(result.newPost._id == this.state.post){
+        this.setState({post:result.newPost})
+      }
     })
+    let post = this.state.post ? this.state.post : "";
+          let url = post != "" ?  window.location.href: "";
+    let string = post.title + " " + post.comment + "\n";
     return (
       <div>
         <Grid container>
-        {this.state.posts.map((post,i)=>{
-          console.log(post)
-          var tit = post.title + "..."
-          let url = post != "" ? window.location.href.replace("home","post/") + post._id : "";
-          let string = post.title + " " + post.comment + "\n";
-          return (
-          <ItemGrid xs={12} sm={12} md={4} key = {i} >
+          <ItemGrid xs={12} sm={12} md={12} >
             <RegularCard
               headerColor={colors[post.title]}
-              cardTitle={tit}
+              cardTitle={post.title}
               cardSubtitle={post.comment}
 
           footer={
@@ -157,7 +147,7 @@ class Dashboard extends React.Component {
             <ItemGrid xs={12} sm={12} md={12}  >
             <IconButton
               color="success"
-              onClick = {()=>this.handleThumbs(post._id,i,post.likes + 1, post.dislikes)}
+              onClick = {()=>this.handleThumbs(post._id,post.likes + 1, post.dislikes)}
               aria-label="Dashboard"
               className={classes.buttonLink}>
               <ThumbUp className={classes.links} />
@@ -165,7 +155,7 @@ class Dashboard extends React.Component {
               </IconButton>
             <IconButton
               color="danger"
-              onClick = {()=>this.handleThumbs(post._id,i,post.likes,post.dislikes + 1)}
+              onClick = {()=>this.handleThumbs(post._id,post.likes,post.dislikes + 1)}
               aria-label="Dashboard"
               className={classes.buttonLink}>
               <ThumbDown className={classes.links} />
@@ -183,7 +173,7 @@ class Dashboard extends React.Component {
             <ItemGrid xs={12} sm={12} md={12} className={classes.container} >
               <TwitterShareButton
                 url={url}
-                title= {string}
+                title={string}
                 via={"movimomentos"}
                 className={classes.twitter}>
                 <TwitterIcon
@@ -196,14 +186,9 @@ class Dashboard extends React.Component {
 
             {this.state.showComments[post._id] && <div className="commentBox">
             <CommentList data = {post.comments} />
-            <CommentForm index = {i} post = {post} onCommentSubmit={this.handleCommentSubmit} />
+            <CommentForm  post = {post} onCommentSubmit={this.handleCommentSubmit} />
           </div>}
-          </ItemGrid>
-          
-
-            )
-        })}
-          
+          </ItemGrid>       
         </Grid>
         
       </div>
@@ -211,8 +196,8 @@ class Dashboard extends React.Component {
   }
 }
 
-Dashboard.propTypes = {
+DetailedDashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(dashboardStyle)(Dashboard);
+export default withStyles(dashboardStyle)(DetailedDashboard);
