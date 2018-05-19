@@ -2,7 +2,17 @@
 // // // Dashboard styles
 // #############################
 
-import { successColor,  defaultFont } from "assets/jss/material-dashboard-react.jsx";
+
+import {
+  grayColor,
+  roseColor,
+  primaryColor,
+  infoColor,
+  successColor,
+  warningColor,
+  dangerColor,
+  defaultFont
+} from "assets/jss/material-dashboard-react.jsx";
 
 const dashboardStyle =  theme => ({
   successText: {

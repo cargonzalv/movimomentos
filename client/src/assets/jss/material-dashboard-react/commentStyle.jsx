@@ -1,8 +1,15 @@
 // ##############################
-// // // RegularCard styles
+// // // Button styles
 // #############################
 
 import {
+  grayColor,
+  roseColor,
+  primaryColor,
+  infoColor,
+  successColor,
+  warningColor,
+  dangerColor,
   card,
   cardHeader,
   defaultFont,
@@ -13,15 +20,20 @@ import {
   purpleCardHeader
 } from "assets/jss/material-dashboard-react.jsx";
 
-const regularCardStyle = {
-  card,
+const commentStyle = {
+  commentList: {
+    padding:5,
+    margin:5
+   },
+    card,
   cardPlain: {
     background: "transparent",
     boxShadow: "none"
   },
   cardHeader: {
     ...cardHeader,
-    ...defaultFont
+    ...defaultFont,
+    marginBottom:30
   },
   cardPlainHeader: {
     marginLeft: 0,
@@ -42,7 +54,7 @@ const regularCardStyle = {
   cardSubtitle: {
     ...defaultFont,
     marginBottom: "0",
-    color: "rgba(255, 255, 255, 0.9)",
+    color: "rgba(255, 255, 255, 0.62)",
     margin: "0 0 10px"
   },
   cardActions: {
@@ -50,8 +62,8 @@ const regularCardStyle = {
     justifyContent: "space-between",
     maxWidth: "400px",
     margin: "0 auto",
-    padding: "10px 0",
-  }
-};
+    padding: "10px 0"
+}
+}
 
-export default regularCardStyle;
+export default commentStyle;

@@ -14,10 +14,11 @@ import {
   Accessibility,
   ThumbUp,
   ThumbDown,
-  Report
+  Report,
+  Comment
 } from "@material-ui/icons";
 import { withStyles, Grid, Hidden } from "material-ui";
-
+import  io from 'socket.io-client'; 
 import {
   StatsCard,
   ChartCard,
@@ -25,7 +26,9 @@ import {
   RegularCard,
   IconButton,
   Table,
-  ItemGrid
+  ItemGrid,
+  CommentList,
+  CommentForm
 } from "components";
 
 import {
@@ -35,6 +38,7 @@ import {
 } from "variables/charts";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/dashboardStyle";
+const socket = io()  
 
 let colors = {
   "Hoy aprendí": "orange",
@@ -56,7 +60,8 @@ class Dashboard extends React.Component {
   }
   state = {
     value: 0,
-    posts:[]
+    posts:[],
+    showComments:{}
   };
   handleChange = (event, value) => {
     this.setState({ value });
@@ -66,42 +71,58 @@ class Dashboard extends React.Component {
     this.setState({ value: index });
   };
 
-  handleThumbs(postId,i,likes,dislikes){
-    (async () => {
-
-    const rawResponse = await fetch('/posts/'+ postId, {
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        likes: likes,
-        dislikes: dislikes
-      })
-    });
-    const content = await rawResponse.json();
-
-    if(content.error){
-      this.setState({errorMessages:content.error.errors})
-    }
-    else{
-      let newPosts = this.state.posts;
-      newPosts[i] = content.result;
-      this.setState({posts:newPosts});
-    }
-    })();
+  handleThumbs(postId,index,likes,dislikes){
+   // this emits an event to the socket (your server) with an argument of 'red'
+    
+    socket.emit('updatePost', {
+        likes: likes, 
+        dislikes:dislikes,
+        postId:postId,
+        index: index
+      }) 
+     
+  }
+  handleComments(id){
+    let showComments = this.state.showComments;
+    showComments[id] = showComments[id] != undefined ? !showComments[id] : true
+    this.setState({showComments:this.state.showComments})
+     
+  }
+  handleCommentSubmit(post, index,  comment){
+    let newComments = post.comments;
+    newComments.push(comment);
+    socket.emit('updatePost', {
+        comments: newComments,
+        postId: post._id
+      }) 
   }
   render() {
     const { classes } = this.props;
-    console.log(classes)
+    socket.on('errorUpdating', (result) => {
+      if(result.id == socket.id){
+        console.log(result)
+        this.setState({errorMessages:result.error.errors})
+    }
+    })
+    // Within the render method, we will be checking for any sockets.
+    // We do it in the render method because it is ran very often.
+    socket.on('postAdded', (result) => {
+      let posts = this.state.posts;
+      posts.push(result.newPost);
+      this.setState({posts:posts});
+    })
+    socket.on('postUpdated', (result) => {
+      let posts = this.state.posts;
+      posts[result.index] = result.newPost;
+      this.setState({posts:posts});
+    })
     return (
       <div>
         <Grid container>
         {this.state.posts.map((post,i)=>{
           var tit = post.title + "..."
           return (
-          <ItemGrid xs={12} sm={12} md={4} key = {i}>
+          <ItemGrid xs={12} sm={12} md={4} key = {i} >
             <RegularCard
               headerColor={colors[post.title]}
               cardTitle={tit}
@@ -128,13 +149,19 @@ class Dashboard extends React.Component {
             <IconButton
               color="warning"
               aria-label="Dashboard"
+              onClick = {()=>this.handleComments(post._id)}
               className={classes.buttonLink}>
-              <Report className={classes.links} />
+              <Comment className={classes.links} />
             </IconButton>
           </div>}
             />
-          </ItemGrid>
 
+            {this.state.showComments[post._id] && <div className="commentBox">
+            <CommentList data = {post.comments} />
+            <CommentForm index = {i} post = {post} onCommentSubmit={this.handleCommentSubmit} />
+          </div>}
+          </ItemGrid>
+          
 
             )
         })}

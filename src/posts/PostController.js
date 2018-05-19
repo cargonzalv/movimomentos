@@ -2,27 +2,24 @@
 var Post  = require("./PostModel");
 var ObjectId = require('mongodb').ObjectID;
 
-var save = (req,res)=>{
-	var post = new Post({
-	title:req.body.title,
-	comment:req.body.comment
+var save = (io,P,id) => {
+  let result;
+  const newPost = new Post({
+	title:P.title,
+	comment:P.comment
 
 	});
 
-	post.save((err,data)=>{
-	if(err){
-		console.log("Error: " + err);
-		return res.status(500).json({
-			message:"Un error ha ocurrido",
-			error:err
-		})
-	}
-
-	res.status(201).json({
-		message: "Person saved",
-		result:data
-	})
-})
+  newPost.save((err,post) => {
+    if(err){
+      result = {'success':false,'message':'Some Error','error':err,"id":id};
+      io.emit('errorSaving', result);
+    }
+    else{
+      const result = {'success':true,'message':'Post Added Successfully',"newPost":newPost,"id":id}
+       io.emit('PostAdded', result);
+    }
+  })
 };
 
 var findAll = (req,res)=>{
@@ -40,29 +37,30 @@ var findAll = (req,res)=>{
 	})
 };
 
-var update = (req,res)=>{
-    var postToUpdate = req.params.id;
-    var request = req.body;
-    console.log(request)
-    Post.findOneAndUpdate({ _id: ObjectId(postToUpdate)}, {$set:request},{new:true} , function (err, result) {
-        if(err){
-			console.log("Error: " + err);
+var updateLikesComments = (io,P) => {
 
-			return res.status(500).json({
-				message:"Un error ha ocurrido",
-				error:err
-			})
-		}
-
-		res.status(201).json({
-			message: "Post updated",
-			result:result
-		})
-    });
+	let newPost = P.likes ? {
+		likes:P.likes,
+		dislikes:P.dislikes
+	} : {
+    comments:P.comments
+  }
+  let result;
+  Post.findOneAndUpdate({ _id:P.postId }, newPost, { new:true }, (err,post) => {
+    if(err){
+      result = {'success':false,'message':'Some Error','error':err};
+      io.emit('errorUpdating', result);
+    }
+    else{
+      const result = {'success':true,'message':'Post Added Successfully',"newPost":post, "index":P.index}
+      console.log(result)
+       io.emit('postUpdated', result);
+    }
+  })
 }
 
 module.exports = {
-	insertPost: save,
+	addPost: save,
 	findAllPosts: findAll,
-	updateLikes: update
+	updatePost: updateLikesComments,
 }

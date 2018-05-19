@@ -7,10 +7,14 @@ var logger = require('morgan');
 var indexRouter = require('./src/index');
 var postsRouter = require('./src/posts/PostRouter');
 
+
+
 //importing our db connection
 var db = require("./config/Connection");
 
 var app = express();
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

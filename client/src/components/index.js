@@ -8,6 +8,15 @@ import RegularCard from "./Cards/RegularCard.jsx";
 import StatsCard from "./Cards/StatsCard.jsx";
 import TasksCard from "./Cards/TasksCard.jsx";
 
+
+// ##############################
+// // // Comments
+// #############################
+
+import CommentForm from "./Comments/CommentForm.jsx";
+import CommentList from "./Comments/CommentList.jsx";
+import Comment from "./Comments/Comment.jsx";
+
 // ##############################
 // // // CustomButtons
 // #############################
@@ -81,6 +90,10 @@ import Small from "./Typography/Small.jsx";
 import A from "./Typography/A.jsx";
 
 export {
+  // Comments
+  CommentList,
+  CommentForm,
+  Comment,
   // Cards
   ChartCard,
   ProfileCard,

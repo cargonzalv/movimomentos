@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, InputLabel, withStyles , Select, MenuItem, FormControl, FormHelperText, Input, TextField} from "material-ui";
 
 import PropTypes from "prop-types";
-
+import  io from 'socket.io-client'; 
 import {
   ProfileCard,
   RegularCard,
@@ -13,6 +13,8 @@ import {
 
 import avatar from "assets/img/faces/marc.jpg";
 import userProfileStyle from "assets/jss/material-dashboard-react/userProfileStyle";
+
+const socket = io()  
 
 const frases = [
                 "Hoy aprendí",
@@ -27,37 +29,38 @@ class UserProfile extends React.Component {
  state = {
     prefix: '',
     text:'',
-    errorMessages:""
+    errorMessages:"",
   };
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value , errorMessages : ""});
   };
 
   handleClick(){
-    (async () => {
-    const rawResponse = await fetch('/posts', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
+    
+    // this emits an event to the socket (your server) with an argument of 'red'
+    
+    socket.emit('addPost', {
         title: this.state.prefix, 
         comment: this.state.text
-      })
-    });
-    const content = await rawResponse.json();
-
-    console.log(content);
-    if(content.error){
-      this.setState({errorMessages:content.error.errors})
-    }
-    else{
-      this.props.history.push("/dashboard");
-    }
-    })();
+      }) 
+     
   }
   render(){
+    socket.on('errorSaving', (result) => {
+      if(result.id == socket.id){
+        console.log(result)
+      this.setState({errorMessages:result.error.errors})
+    }
+    })
+    socket.on('PostAdded', (result) => {
+
+      if(socket.id == result.id){
+        console.log(result)
+
+      this.props.history.push("/dashboard");
+    }
+    })
+
      const {classes} = this.props;
      var titleError = this.state.errorMessages.title ? this.state.errorMessages.title.message : "Con este prefijo empezará tu comentario";
       var commentError = this.state.errorMessages.comment ? this.state.errorMessages.comment.message : "Ingresa tu comentario";
