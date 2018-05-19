@@ -57,7 +57,7 @@ class UserProfile extends React.Component {
       if(socket.id == result.id){
         console.log(result)
 
-      this.props.history.push("/dashboard");
+      this.props.history.push("/home");
     }
     })
 
