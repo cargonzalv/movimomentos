@@ -104,6 +104,9 @@ const headerStyle = theme => ({
     backgroundColor: dangerColor,
     color: "#FFFFFF",
     ...defaultBoxShadow
+  },
+  button:{
+      borderRadius:"12px"
   }
 });
 
