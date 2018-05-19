@@ -54,7 +54,8 @@ const dashboardStyle =  theme => ({
   twitter:{
     margin:"auto",
     float:"center",
-    width:40
+    width:40,
+    cursor: "pointer"
   }
 });
 
