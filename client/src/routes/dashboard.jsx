@@ -18,14 +18,14 @@ import {
 
 const dashboardRoutes = [
   {
-    path: "/dashboard",
+    path: "/home",
     sidebarName: "Dashboard",
     navbarName: "Material Dashboard",
     icon: Dashboard,
     component: DashboardPage
   },
   {
-    path: "/user",
+    path: "/add",
     sidebarName: "User Profile",
     navbarName: "Profile",
     icon: Person,
@@ -66,7 +66,7 @@ const dashboardRoutes = [
     icon: Notifications,
     component: NotificationsPage
   },
-  { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
+  { redirect: true, path: "/", to: "/home", navbarName: "Redirect" }
 ];
 
 export default dashboardRoutes;

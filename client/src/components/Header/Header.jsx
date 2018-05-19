@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Menu } from "@material-ui/icons";
 import { NavLink } from "react-router-dom";
+import {Add} from "@material-ui/icons";
 
 import {
   withStyles,
@@ -11,8 +12,9 @@ import {
   Hidden,
   Button,
   ListItem,
+  Icon,
   ListItemIcon,
-  ListItemText
+  ListItemText,
 } from "material-ui";
 import cx from "classnames";
 
@@ -32,32 +34,26 @@ function Header({ ...props }) {
         <div className={classes.flex}>
 
         <NavLink className={classes.title}
-            to="/dashboard"
+            to="/home"
           >
         MoviMomentos
         </NavLink>
 
          
           <NavLink className={classes.add}
-            to="/user"
+            to="/add"
           >
+           <Button className={classes.button} variant="raised" color="primary">
            Añadir Comentario
+              <Add className={classes.rightIcon} />
+            </Button>
           </NavLink>
           
         </div>
         <Hidden smDown implementation="css">
           <HeaderLinks />
         </Hidden>
-        <Hidden mdUp>
-          <IconButton
-            className={classes.appResponsive}
-            color="inherit"
-            aria-label="open drawer"
-            onClick={props.handleDrawerToggle}
-          >
-            <Menu />
-          </IconButton>
-        </Hidden>
+        
       </Toolbar>
     </AppBar>
   );

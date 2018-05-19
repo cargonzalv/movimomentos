@@ -34,9 +34,14 @@ const headerStyle = theme => ({
   container: {
     ...container,
     minHeight: "50px",
+    margin:"0 auto",
+    textAlign: "center"
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
   },
   flex: {
-    flex: 1
+    flex: 1,
   },
   title: {
     ...defaultFont,
@@ -47,7 +52,17 @@ const headerStyle = theme => ({
     color: "inherit",
     "&:hover,&:focus": {
       background: "transparent"
-    }
+       
+    },
+    float:"left",
+    fontFamily: "times, Times New Roman, times-roman, georgia, serif",
+      color: "#444",
+      margin: "0",
+      padding: "0px 0px 6px 0px",
+      fontSize: "40px",
+      lineHeight: "44px",
+      letterSpacing: "-2px",
+      fontWeight: "bold"
   },
   add:{
     ...defaultFont,
@@ -57,9 +72,10 @@ const headerStyle = theme => ({
     textTransform: "none",
     color: "inherit",
     "&:hover,&:focus": {
-      background: "transparent"
+      background: "transparent",
+    marginLeft:"auto",
+    marginRight:"auto"
     },
-    marginLeft:"50%"
   },
   appResponsive: {
     top: "8px"
