@@ -48,12 +48,7 @@ function Header({ ...props }) {
               <Add className={classes.rightIcon} />
             </Button>
           </NavLink>
-          
         </div>
-        <Hidden smDown implementation="css">
-          <HeaderLinks />
-        </Hidden>
-        
       </Toolbar>
     </AppBar>
   );

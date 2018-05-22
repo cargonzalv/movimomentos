@@ -83,23 +83,23 @@ const dangerBoxShadow = {
 };
 
 const orangeCardHeader = {
-  background: "linear-gradient(60deg, #ffa726, #fb8c00)",
+  background: "linear-gradient(60deg, #005b7c, #12789D)",
   ...warningBoxShadow
 };
 const greenCardHeader = {
-  background: "linear-gradient(60deg, #66bb6a, #43a047)",
+  background: "linear-gradient(60deg, #008EAB, #009DBC)",
   ...successBoxShadow
 };
 const redCardHeader = {
-  background: "linear-gradient(60deg, #ef5350, #e53935)",
+  background: "linear-gradient(60deg, #01BCC6, #01D1DC)",
   ...dangerBoxShadow
 };
 const blueCardHeader = {
-  background: "linear-gradient(60deg, #26c6da, #00acc1)",
+  background: "linear-gradient(60deg, #F2C981, #F2D196)",
   ...infoBoxShadow
 };
 const purpleCardHeader = {
-  background: "linear-gradient(60deg, #ab47bc, #8e24aa)",
+  background: "linear-gradient(60deg, #F0F075, #E9E986)",
   ...primaryBoxShadow
 };
 

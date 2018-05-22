@@ -70,6 +70,7 @@ class UserProfile extends React.Component {
         <ItemGrid xs={8} sm={8} md={8}>
           <RegularCard
             cardTitle="Nuevo comentario"
+            headerColor={"orange"}
             cardSubtitle="Completa el formulario  "
             content={
              <form className={classes.root} autoComplete="on">
@@ -118,7 +119,7 @@ class UserProfile extends React.Component {
               
             </form>
             }
-            footer={<Button onClick={() => { this.handleClick()}} className={classes.button} color="success">Enviar Comentario</Button>}
+            footer={<Button onClick={() => { this.handleClick()}} className={classes.button} color="info">Enviar Comentario</Button>}
           />
         </ItemGrid>
       </Grid>

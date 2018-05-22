@@ -127,7 +127,7 @@ class Dashboard extends React.Component {
     })
     // Within the render method, we will be checking for any sockets.
     // We do it in the render method because it is ran very often.
-    socket.on('postAdded', (result) => {
+    socket.on('PostAdded', (result) => {
       let posts = this.state.posts;
       posts.push(result.newPost);
       this.setState({posts:posts});

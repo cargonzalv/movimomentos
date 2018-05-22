@@ -41,22 +41,17 @@ const headerStyle = theme => ({
     marginLeft: theme.spacing.unit,
   },
   flex: {
-    flex: 1,
+    flex:1
   },
   title: {
-    ...defaultFont,
     lineHeight: "30px",
+    paddingLeft:"5vw",
     fontSize: "18px",
     borderRadius: "3px",
     textTransform: "none",
-    color: "inherit",
-    "&:hover,&:focus": {
-      background: "transparent"
-       
-    },
+
     float:"left",
     fontFamily: "times, Times New Roman, times-roman, georgia, serif",
-      color: "#444",
       margin: "0",
       padding: "0px 0px 6px 0px",
       fontSize: "40px",
@@ -66,15 +61,16 @@ const headerStyle = theme => ({
   },
   add:{
     ...defaultFont,
-    lineHeight: "30px",
+    width: "Xu",
+    height: "Yu",
+    position: "absolute",
+    left: "42%",
     fontSize: "18px",
     borderRadius: "3px",
     textTransform: "none",
     color: "inherit",
     "&:hover,&:focus": {
       background: "transparent",
-    marginLeft:"auto",
-    marginRight:"auto"
     },
   },
   appResponsive: {
