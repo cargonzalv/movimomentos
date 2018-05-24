@@ -95,11 +95,11 @@ const redCardHeader = {
   ...dangerBoxShadow
 };
 const blueCardHeader = {
-  background: "linear-gradient(60deg, #F2C981, #F2D196)",
+  background: "linear-gradient(60deg, #F2A981, #F2D196)",
   ...infoBoxShadow
 };
 const purpleCardHeader = {
-  background: "linear-gradient(60deg, #F0F075, #E9E986)",
+  background: "linear-gradient(60deg, #0091FF, #0000DC)",
   ...primaryBoxShadow
 };
 
